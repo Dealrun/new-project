@@ -1,0 +1,25 @@
+{
+  "name": "onduty",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "reset-local": "node -e \"require('fs').rmSync('.pglite',{recursive:true,force:true});console.log('로컬 데이터를 지웠습니다. 다시 실행하면 시연 데이터가 새로 만들어집니다.')\""
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.2.17",
+    "next": "^15.3.0",
+    "postgres": "^3.4.5",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "typescript": "^5.7.0"
+  }
+}

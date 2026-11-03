@@ -1,0 +1,25 @@
+{
+  "host": "127.0.0.1",
+  "port": 8000,
+  "open_browser": true,
+  "db_path": "data.db",
+  "daily_notify_time": "17:00",
+  "auth": {
+    "dev_login": true,
+    "sso": { "enabled": false }
+  },
+  "mail": {
+    "enabled": false,
+    "host": "",
+    "port": 25,
+    "starttls": false,
+    "user": "",
+    "password": "",
+    "from": ""
+  },
+  "alimtalk": {
+    "enabled": false,
+    "endpoint": "",
+    "sender": ""
+  }
+}
