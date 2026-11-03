@@ -3,9 +3,18 @@ import { ReactNode } from 'react';
 import { Toaster } from '@/components/ui';
 import './globals.css';
 
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : 'http://localhost:3000';
+
+const description = '당직·일직·비상대기·차출 근무 자동 편성과 알림';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: 'OnDuty',
-  description: '당직·일직·비상대기·차출 근무 자동 편성과 알림',
+  description,
+  openGraph: { title: 'OnDuty', description, siteName: 'OnDuty', locale: 'ko_KR', type: 'website' },
+  twitter: { card: 'summary_large_image', title: 'OnDuty', description },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
