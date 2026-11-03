@@ -1,4 +1,4 @@
 {
-  "regions": ["icn1"],
+  "regions": ["fra1"],
   "crons": [{ "path": "/api/cron/daily", "schedule": "0 8 * * *" }]
 }

@@ -33,7 +33,7 @@ npm run reset-local
 
 ## 2. Supabase 연결하기 (온라인 저장)
 
-1. https://supabase.com 에서 프로젝트를 만듭니다. 지역(Region)은 **Northeast Asia (Seoul)** 을 권장합니다.
+1. https://supabase.com 에서 프로젝트를 만듭니다. (현재 연결된 프로젝트: `iypvnppcybdbsdkwjmjj`, 지역 eu-central-1)
 2. 대시보드 상단 **Connect** → **Transaction pooler** 주소(포트 `6543`)를 복사합니다.
 3. 이 폴더의 `.env.example`을 복사해 **`.env.local`** 로 저장하고, `DATABASE_URL=` 뒤에 붙여 넣습니다. `[YOUR-PASSWORD]`는 프로젝트 만들 때 정한 DB 비밀번호로 바꿉니다.
 4. `npm run dev`로 다시 실행하면 Supabase에 표와 시연 데이터가 자동으로 만들어집니다. 화면 맨 아래에 `데이터 저장소: Supabase`로 표시됩니다.
@@ -50,7 +50,11 @@ npm run reset-local
    - `CRON_SECRET`: 아무 긴 임의 문자열
    - `DEV_LOGIN`: 시연 중엔 `true`, 운영 전환 시 `false`
 4. Deploy. 매일 17:00(한국 시간) 알림은 `vercel.json`의 Cron(08:00 UTC)이 자동으로 실행합니다.
-   서버 지역은 서울(`icn1`)로 설정되어 있어 Supabase 서울 지역과 가깝습니다.
+   `vercel.json`의 서버 지역(`regions`)은 **Supabase 프로젝트와 같은 지역**이어야 빠릅니다.
+   현재 Supabase 프로젝트가 프랑크푸르트(eu-central-1)라서 `fra1`로 맞춰 두었습니다. (서울 프로젝트라면 `icn1`)
+
+> 내 PC에서 Supabase에 연결해 실행하면, 요청마다 DB가 있는 지역까지 여러 번 오가서 한 화면에 2~4초쯤 걸릴 수 있습니다.
+> 배포된 Vercel에서는 서버와 DB가 같은 지역이라 이 지연이 거의 없습니다. PC에서 빠르게 확인하려면 `.env.local`의 `DATABASE_URL` 줄 앞에 `#`을 붙여 내장 DB로 실행하세요.
 
 > ⚠️ PRD상 이 시스템은 **군 내부망 운영**이 전제입니다. Vercel·Supabase는 외부 인터넷 서비스이므로, 실제 인원 이름·연락처·일정은 넣지 말고 **시연용 가상 데이터로만** 사용하세요.
 

@@ -47,17 +47,23 @@ export class World {
 
   static async load(db: Tx) {
     const w = new World();
-    w.people = await db.q('SELECT * FROM people ORDER BY id');
-    for (const p of w.people) w.byId.set(p.id, p);
-    for (const h of await db.q('SELECT * FROM holidays')) w.holidays.set(h.date, h.name);
-    for (const s of await db.q('SELECT * FROM schedule')) w.put(s.date, s.duty, s.dept, s.person_id);
-    w.unavail = await db.q('SELECT * FROM unavail');
-    w.makeup = (await db.q('SELECT * FROM makeup ORDER BY id')) as Makeup[];
-    for (const r of await db.q('SELECT * FROM rotations')) {
+    // 한꺼번에 보내 왕복 횟수를 줄인다(원격 DB에서 체감 속도에 큰 차이)
+    const [people, holidays, schedule, unavail, makeup, rotations, months, settings] = await Promise.all([
+      db.q('SELECT * FROM people ORDER BY id'), db.q('SELECT * FROM holidays'), db.q('SELECT * FROM schedule'),
+      db.q('SELECT * FROM unavail'), db.q('SELECT * FROM makeup ORDER BY id'), db.q('SELECT * FROM rotations'),
+      db.q('SELECT * FROM months'), db.q('SELECT * FROM settings'),
+    ]);
+    w.people = people;
+    for (const p of people) w.byId.set(p.id, p);
+    for (const h of holidays) w.holidays.set(h.date, h.name);
+    for (const s of schedule) w.put(s.date, s.duty, s.dept, s.person_id);
+    w.unavail = unavail;
+    w.makeup = makeup as Makeup[];
+    for (const r of rotations) {
       w.rots.set(r.key, { duty: r.duty, dept: r.dept, daytype: r.daytype, order: JSON.parse(r.order_json), pos: r.pos });
     }
-    for (const m of await db.q('SELECT * FROM months')) w.months.set(m.month, { status: m.status, snapshot: m.snapshot, updated: m.updated });
-    for (const s of await db.q('SELECT * FROM settings')) w.settings.set(s.key, JSON.parse(s.value));
+    for (const m of months) w.months.set(m.month, { status: m.status, snapshot: m.snapshot, updated: m.updated });
+    for (const s of settings) w.settings.set(s.key, JSON.parse(s.value));
     return w;
   }
 
