@@ -41,7 +41,14 @@ npm run reset-local
 > `.env.local`에는 비밀번호가 들어 있으므로 다른 사람과 공유하거나 GitHub에 올리지 마세요(`.gitignore`로 제외되어 있음).
 > 모든 표에 RLS가 켜져 있어 Supabase 공개 키로는 데이터를 읽을 수 없고, 이 앱의 서버만 접근합니다.
 
-## 3. Vercel에 배포하기 (나중에)
+## 3. Vercel에 배포하기
+
+현재 배포 주소: **https://onduty-kappa.vercel.app** (Vercel 프로젝트 `dealrun/onduty`)
+
+GitHub 저장소 `Dealrun/new-project`와 연결되어 있어서, `main` 브랜치에 올리면(push) 자동으로 다시 배포됩니다.
+다른 브랜치에 올리면 미리보기 주소가 따로 만들어집니다.
+
+처음부터 새로 연결할 때는 아래 순서를 따릅니다.
 
 1. 이 프로젝트를 GitHub 저장소에 올립니다(Git 필요).
 2. https://vercel.com 에서 **Add New → Project** 로 저장소를 가져옵니다. **Root Directory** 를 `web` 으로 지정합니다.
